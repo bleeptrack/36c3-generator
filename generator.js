@@ -203,12 +203,24 @@ function handleCrack(save, pos){
 
 	if(o.point){
 					
+		var insertpath;
+		var startCP = false;
 		var path = concreteObjects[o.idx];
+		
+		if(path._class=="CompoundPath"){
+			var item = path.children[0].clone();
+			item.insertAbove(path);
+			item.fillColor = Color.random();
+			insertpath = item;
+			startCP = true;
+		}else{
+			insertpath = path;
+		}
 		var p = o.point;
 		var timeout = 10;
 					
 		var rnglength = state.getLength();
-		var crackobj = calcCrackShape(path, p);
+		var crackobj = calcCrackShape(insertpath, p);
 		var newshape = crackobj.newshape;
 		var leaf = crackobj.leaf;
 		var rnglength2 = state.getLength();
@@ -220,7 +232,7 @@ function handleCrack(save, pos){
 			rnglength = rnglength2
 			newshape.remove();
 			leaf.remove();
-			crackobj = calcCrackShape(path, p);
+			crackobj = calcCrackShape(insertpath, p);
 			newshape = crackobj.newshape;
 			leaf = crackobj.leaf;
 			timeout--;
@@ -228,9 +240,27 @@ function handleCrack(save, pos){
 		}
 					
 		if(newshape._class!="CompoundPath"){
+			
+			if(startCP){
+				
+				
+				for(var i = 1; i<path.children.length; i++){
+					console.log(i);
+					var item = path.children[i].clone();
+					console.log(item);
+					
+					var cut = newshape.subtract(item);
+					newshape.remove();
+					item.remove();
+					newshape = cut;
+				}
+				newshape.fillColor = concreteColor;
+				insertpath.remove();
+			}
 			concreteObjects[o.idx].remove();
 			concreteObjects.splice(o.idx, 1);
 			concreteObjects.push(newshape);
+			
 			leaves.push(leaf);
 			leaf.remove();
 			if(hope){//no worries, there's still hope ;)
@@ -439,7 +469,7 @@ function svgError(err){
 
 function handleSVG(svg){
 		
-		console.log(svg);
+		
 		svg.scale(500/svg.bounds.height);
 		svg.position = [paper.view.viewSize.width/2,320];
 		for(var i = 0; i<svg.children.length; i++){
@@ -483,6 +513,9 @@ function getClosestPoint(pos){
 	var dists = [];
 	for(var i = 0; i<concreteObjects.length; i++){
 		var p = concreteObjects[i].getNearestPoint(pos); //p is null?
+		if(concreteObjects[i]._class=="CompoundPath"){
+			p = concreteObjects[i].children[0].getNearestPoint(pos);
+		}
 		if(p==null){
 			console.log("p is null");
 			console.log(concreteObjects[i]);
@@ -532,8 +565,9 @@ function jitterPath(path){
 	return newpath;
 }
 
-//calculates thing, long crack shape at certain point on path
+//calculates thin, long crack shape at certain point on path
 function calcCrackShape(path, point){
+	
 	var offs = path.getOffsetOf(point);
 	var n = path.getNormalAt(offs);
 	var saven = n;
