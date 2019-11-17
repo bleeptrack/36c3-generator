@@ -1,0 +1,233 @@
+ @font-face {
+  font-family: BlackoutMidnight;
+  src: url(BO-Midnight.ttf);
+}
+
+ @font-face {
+  font-family: Blackout2AM;
+  src: url(BO-2am.ttf);
+}
+
+html,
+body {
+    height: 100%;
+	color: #D0D0CE;
+	margin:0;
+	padding: 0;
+}
+
+                  
+body{
+	background-color: black;
+}
+
+.zoom{
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#infobox{
+position: fixed;
+bottom: 5px;
+right: 5px;
+color: darkred;
+}
+
+#infobox>a{
+	color: darkred;
+	font-family: sans-serif;
+	font-size: 1em;
+	text-decoration: none;
+}
+
+#infobox>a:hover{
+	color: #FE5000;
+}
+
+/* Scale canvas with resize attribute to full size */
+canvas[resize] {
+    width: 100%;
+    height: 100%;
+} 
+
+.menue{
+	position: fixed;
+	top: 0px;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	
+}
+
+p{
+	text-align: center;
+	font-family: "BlackoutMidnight", sans-serif;
+}
+
+h2{
+	line-height: 0.1em;
+	margin-left:1.5em;
+	text-align: center;
+	
+}
+
+h2.orange{
+	color: #FE5000;
+	font-family: "BlackoutMidnight", sans-serif;
+}
+
+.number{
+	font-size: 2em;
+	line-height: 130%;
+	font-family: "BlackoutMidnight", sans-serif;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 1.5em;
+	width:  1.125em;
+	text-align: center;
+	background: #FE5000;
+	border-bottom-right-radius: 100%;
+	padding-right: 0.375em;
+}
+
+.stage{
+	margin: 10px;
+	padding: 10px;
+	border-style: solid;
+	border-width: 3px;
+	position: relative;
+}
+.stagecontent{
+	height: calc(100% - 2.5em);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.content{
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.stage.orange{
+	border-color: #FE5000;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+[type="file"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px;
+}
+ 
+[type="file"] + label {
+	font-family: "Blackout2AM", sans-serif;
+  border: none;
+	background-color: black; /* Green */
+	color: #D0D0CE;
+  cursor: pointer;
+  display: inline-block;
+  padding-left: 2rem 4rem;
+  font-size: 2em;
+  margin: 0 auto;
+}
+  
+[type="file"]:focus + label,
+[type="file"] + label:hover {
+    color: #FE5000;
+}
+  
+[type="file"]:focus + label {
+  outline: 1px dotted #000;
+}
+
+button {
+	font-family: "Blackout2AM", sans-serif;
+	border: none;
+	background-color: black; /* Green */
+	color: #D0D0CE;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 2em;
+}
+
+button:hover{
+	color: #FE5000;
+}
+
+textarea, input[type="text"]{
+	font-size: 1.2em; 
+	border: none;
+	color: black;
+	font-family: sans-serif;
+	padding: 5px;
+	
+}
+
+.orangestyle:hover{
+	color: #FE5000;
+}
+
+.greenstyle:hover{
+	color: #00BB31; 
+}
+
+
+
+ /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #000000;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+  border-style: solid;
+  border-width: 3px;
+  border-color: #FE5000;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #FE5000;
+  text-decoration: none;
+  cursor: pointer;
+} 
+
+#sharetext{
+width: 100%;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Prototype</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="hexhex.js">
+</script>
+    <script src="opentype.js"></script>
+    <script src="decomp.js"></script>
+    <script src="matter.js"></script>
+    <script src="paper-full.js"></script>
+    <script src="generator.js"></script>
+    
+  </head>
+  <body>
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<p>Copy this URL and share :)</p>
+			<textarea id="sharetext">Some text in the Modal..</textarea>
+		</div>
+
+	</div>
+
+	<div id="infobox">
+		<a href="https://twitter.com/Bleeptrack">by bleeptrack</a>&nbsp;-&nbsp;<a href="https://github.com/bleeptrack/36c3-generator">Code on Github</a>
+	</div>
+	<div class="zoom">
+		<button onclick="zoomIn()">+</button></br></br>
+		<button onclick="zoomOut()">-</button>
+	</div>
+	<div class="menue">
+		<div class="stage orange" id="one">
+			<div class="number">1</div>
+			<h2 class="orange" >Add Text or upload SVG</h2>
+			<div class="stagecontent">
+				<span style="margin: 0 auto;"><input type="text" id="simulationtext" placeholder="your word" autocomplete="off"></input><button onclick="updateText()">&gt;</button></span>
+				<p>- or -</p>
+				<input type="file" id="svgupload" name="svgupload" accept="image/svg" onchange="handleFiles(this.files)"><label for="svgupload" />choose a svg file</label>
+			</div>
+		</div>
+		<div class="stage orange" id="two">
+			<div class="number">2</div>
+			<h2 class="orange" >Finish Simulation</h2>
+			<div class="stagecontent">
+				
+				<button onclick="stopSimulation()">stop Simulation</button>
+			</div>
+		</div>
+		<div class="stage orange disabled" id="three">
+			<div class="number">3</div>
+			<h2 class="orange" >Add a caption</h2>
+			<div class="stagecontent">
+				<textarea name="" id="caption" cols="20" rows="5" autocomplete="off" placeholder="add your caption&#10;linebreaks allowed :)"></textarea></br>
+				<button onclick="setCaption(true)">insert</button>
+			</div>
+		</div>
+		<div class="stage orange disabled" id="four">
+			<div class="number">4</div>
+			<h2 class="orange" >Click to Crack</h2>
+			<div class="stagecontent">
+				<p>Move your mouse</br> over the broken letters</br> and add additional cracks</br> by clicking.</p>
+				</br>
+				<p>The red dot</br>shows the selected</br>place.</p>
+			</div>
+		</div>
+		<div class="stage orange disabled" id="five">
+			<div class="number">5</div>
+			<h2 class="orange" >Choose your style</h2>
+			<div class="stagecontent">
+				<button class="orangestyle" onclick="setDestruction()">destruction</button>
+				<p>- or -</p>
+				<button class="greenstyle" onclick="setHope()">hope</button>
+			</div>
+		</div>
+		<div class="stage orange" id="five">
+			<div class="content">
+				<button onclick="downloadPNG()">save PNG</button>
+				<button onclick="downloadSVG()">save SVG</button>
+				<button onclick="share()" id="shareButton">share</button>
+			</div>
+		</div>
+    </div>
+    <canvas id="paperCanvas" resize="true"></canvas>
+  </body>
+</html>
