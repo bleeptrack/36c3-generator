@@ -6,6 +6,9 @@ var eT = url.searchParams.get("time");
 var cT = url.searchParams.get("caption");
 var txt = url.searchParams.get("text");
 
+//RNG
+var state = new StateSaver();
+
 if(seed){
 	state = new StateSaver(seed);
 }
@@ -19,8 +22,7 @@ if(txt){
 	simText = txt;
 }
 
-//RNG
-var state = new StateSaver();
+
 
 //timestamp of simulation start and end
 var startTime = 0;
