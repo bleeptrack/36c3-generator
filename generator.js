@@ -1,29 +1,5 @@
 paper.install(window);
 
-var url = new URL(window.location.href);
-var seed = url.searchParams.get("seed");
-var eT = url.searchParams.get("time");
-var cT = url.searchParams.get("caption");
-var txt = url.searchParams.get("text");
-
-//RNG
-var state = new StateSaver();
-
-if(seed){
-	state = new StateSaver(seed);
-}
-if(eT){
-	endTime = parseFloat(eT);
-}
-if(cT){
-	captionText = cT.split(",");
-}
-if(txt){
-	simText = txt;
-}
-
-
-
 //timestamp of simulation start and end
 var startTime = 0;
 var endTime = 0;
@@ -67,6 +43,29 @@ var pathIsText = true;
 var uploadedSVG;
 var captionText = [];
 var simText = "36c3";
+//RNG
+var state = new StateSaver();
+
+var url = new URL(window.location.href);
+var seed = url.searchParams.get("seed");
+var eT = url.searchParams.get("time");
+var cT = url.searchParams.get("caption");
+var txt = url.searchParams.get("text");
+
+if(seed){
+	state = new StateSaver(seed);
+}
+if(eT){
+	endTime = parseFloat(eT);
+}
+if(cT){
+	captionText = cT.split(",");
+}
+if(txt){
+	simText = txt;
+}
+
+
 
 // for sharing modal
 var modal;
