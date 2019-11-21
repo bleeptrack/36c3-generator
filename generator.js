@@ -397,7 +397,7 @@ function clearSimulation(){
 	
 	simulationRunning = true;
 	
-	var ground = Bodies.rectangle(-100, groundheight, 5000, 60, { isStatic: true });
+	var ground = Bodies.rectangle(-100, groundheight, 6400, 60, { isStatic: true });
 	ground.frictionStatic = staticFriction;
 	ground.friction = friction;
 	ground.density = density*2;
