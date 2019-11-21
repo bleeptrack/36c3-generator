@@ -434,6 +434,7 @@ function simulateText(text){
 
 		for(var i = 0; i<fontpaths.length; i++){
 			
+			if(fontpaths[i].commands == 0) continue;
 			
 			//import test as SVG into paper
 			var boundingboxData = fontpaths[i].getBoundingBox();
