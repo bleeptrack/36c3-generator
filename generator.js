@@ -227,56 +227,57 @@ function handleCrack(save, pos){
 		var leaf = crackobj.leaf;
 		var rnglength2 = state.getLength();
 					
-					
-		while(newshape._class=="CompoundPath" && timeout>0){
-			console.log("removing last: "+rnglength2-rnglength);
-			state.removeLast(rnglength2-rnglength);
-			rnglength = rnglength2
-			newshape.remove();
-			leaf.remove();
-			crackobj = calcCrackShape(insertpath, p);
-			newshape = crackobj.newshape;
-			leaf = crackobj.leaf;
-			timeout--;
-			rnglength2 = state.getLength();
-		}
-					
-		if(newshape._class!="CompoundPath"){
-			
-			if(startCP){
+		if(newshape != null){//crack can be calculated here			
+			while(newshape._class=="CompoundPath" && timeout>0){
+				console.log("removing last: "+rnglength2-rnglength);
+				state.removeLast(rnglength2-rnglength);
+				rnglength = rnglength2
+				newshape.remove();
+				leaf.remove();
+				crackobj = calcCrackShape(insertpath, p);
+				newshape = crackobj.newshape;
+				leaf = crackobj.leaf;
+				timeout--;
+				rnglength2 = state.getLength();
+			}
+						
+			if(newshape._class!="CompoundPath"){
 				
-				
-				for(var i = 1; i<path.children.length; i++){
-					console.log(i);
-					var item = path.children[i].clone();
-					console.log(item);
+				if(startCP){
 					
-					var cut = newshape.subtract(item);
-					newshape.remove();
-					item.remove();
-					newshape = cut;
+					
+					for(var i = 1; i<path.children.length; i++){
+						console.log(i);
+						var item = path.children[i].clone();
+						console.log(item);
+						
+						var cut = newshape.subtract(item);
+						newshape.remove();
+						item.remove();
+						newshape = cut;
+					}
+					newshape.fillColor = concreteColor;
+					insertpath.remove();
 				}
-				newshape.fillColor = concreteColor;
-				insertpath.remove();
+				concreteObjects[o.idx].remove();
+				concreteObjects.splice(o.idx, 1);
+				concreteObjects.push(newshape);
+				
+				leaves.push(leaf);
+				leaf.remove();
+				if(hope){//no worries, there's still hope ;)
+					animateLeaf(leaf);
+				}
 			}
-			concreteObjects[o.idx].remove();
-			concreteObjects.splice(o.idx, 1);
-			concreteObjects.push(newshape);
-			
-			leaves.push(leaf);
-			leaf.remove();
-			if(hope){//no worries, there's still hope ;)
-				animateLeaf(leaf);
-			}
-		}
-		crackPoint.bringToFront();
-		captionObjects.forEach(function(item){
-			item.bringToFront();
-		});
-		if(hope){
-			animatedLeaves.forEach(function(item){
+			crackPoint.bringToFront();
+			captionObjects.forEach(function(item){
 				item.bringToFront();
 			});
+			if(hope){
+				animatedLeaves.forEach(function(item){
+					item.bringToFront();
+				});
+			}
 		}
 	}
 }
@@ -580,6 +581,12 @@ function calcCrackShape(path, point){
 	var cutShape = calcCrackStencil(line, path.getTangentAt(offs), 25);
 	var inters = cutShape.getIntersections(path);
 	var leaf = createLeaves(inters, path, cutShape);
+	if(leaf == null){
+		//leaf could not be set
+		cutShape.remove();
+		return {newshape: null, leaf: null};
+	}
+	
 	if(line.length>100){
 		var rotation2 = state.getNextInt(0,20)-40;
 		var idx = Math.floor(line.segments.length/2);
@@ -610,7 +617,11 @@ function calcCrackShape(path, point){
 function createLeaves(inters, originPath, leafShape){
 	
 	var calcLine = new Path();
-	//ToDo check for inters[0] is undefined
+	if(inters[0] === undefined){
+		//leaf can not be calculated here
+		return null;
+	}
+
 	calcLine.add(inters[0].point);
 	calcLine.add(inters[inters.length-1].point);
 	var point = calcLine.getPointAt(calcLine.length/2);
