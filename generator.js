@@ -447,7 +447,7 @@ function simulateText(text){
 			var rrad = (state.getNextInt(0,60)-30)/100;
 			paperpath.rotate(rrad * (180/Math.PI));
 			
-			paperpath.bounds.bottomCenter = [boundingbox.center.x, groundheight-50];
+			paperpath.bounds.bottomCenter = [boundingbox.center.x, groundheight-80];
 			crackShapeObject(paperpath);
 	
 		}
@@ -495,19 +495,20 @@ function handleSVG(svg){
 //adds a Path to the Engine World
 function addToWorld(path){
 	var vertices = paper2matter(path);
-				
-	//ToDo geck for body is undefined
 	var body = Bodies.fromVertices(path.bounds.center.x, path.bounds.center.y, vertices);
-	body.friction = friction;
-	body.frictionStatic = staticFriction;
-	body.density = density;
-		
-	World.add(engine.world, body);
-	path.fillColor = concreteColor;
-	concreteObjects.push(path);
-	physicObjects.push(body);
-	physicObjectsAngles.push(body.angle);
-
+	if(body !== undefined){ //path with too few points can not be made to a body
+		body.friction = friction;
+		body.frictionStatic = staticFriction;
+		body.density = density;
+			
+		World.add(engine.world, body);
+		path.fillColor = concreteColor;
+		concreteObjects.push(path);
+		physicObjects.push(body);
+		physicObjectsAngles.push(body.angle);
+	}else{
+		path.remove();
+	}
 }
 
 //calculates and returns the closest point to pos on all paths in the simulation in addition with the shape index it belongs to
