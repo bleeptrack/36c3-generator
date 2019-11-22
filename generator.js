@@ -355,6 +355,7 @@ function stopSimulation(){
 function updateText(){
 	
 	var text = document.getElementById("simulationtext").value;
+	document.title = text;
 	
 	if(text.length>0){
 		clearSeed();
@@ -373,6 +374,7 @@ function handleFiles(files){
 	setAnimationFunction();
 	disableShare();
 	uploadedSVG = files[0];
+	document.title = files[0].name;
 	pathIsText = false;
 	restart = true;
 }
