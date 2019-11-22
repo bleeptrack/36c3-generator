@@ -373,8 +373,14 @@ function handleFiles(files){
 	clearSeed();
 	setAnimationFunction();
 	disableShare();
-	uploadedSVG = files[0];
-	document.title = files[0].name;
+	if(files){
+		uploadedSVG = files[0];
+		simSVG = files[0];
+		document.title = files[0].name;
+	}else{
+		uploadedSVG = simSVG;
+		document.title = simSVG.name;
+	}
 	pathIsText = false;
 	restart = true;
 }
