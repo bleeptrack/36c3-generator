@@ -43,6 +43,8 @@ var pathIsText = true;
 var uploadedSVG;
 var captionText = [];
 var simText = "36c3";
+var simSVG = "";
+
 //RNG
 var state = new StateSaver();
 
@@ -351,6 +353,7 @@ function stopSimulation(){
 
 //start a new simulation from user input text
 function updateText(){
+	
 	var text = document.getElementById("simulationtext").value;
 	
 	if(text.length>0){
@@ -1058,7 +1061,7 @@ function animateLeaf(leafobject){
 
 //creates sharing url and shows modal
 function share(){
-	urlstring = window.location.hostname+"?seed="+state.getSeed()+"&time="+endTime+"&caption="+captionText+"&text="+simText;
+	urlstring = window.location.hostname+"?seed="+state.getSeed()+"&time="+endTime+"&caption="+encodeURIComponent(captionText.toString())+"&text="+encodeURIComponent(simText);
 	console.log(urlstring);
 	var textarea = document.getElementById("sharetext");
 	textarea.value = urlstring;
