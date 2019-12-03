@@ -27,6 +27,7 @@ var groundheight = 800;
 var counter = 0;
 
 var Engine = Matter.Engine,
+	Events = Matter.Events,
 	Render = Matter.Render,
 	World = Matter.World,
 	Bodies = Matter.Bodies;
@@ -158,9 +159,9 @@ function setAnimationFunction(view){
 			clearSimulation();
 			restart = false;
 			if(pathIsText){
-				simulateText(simText);
+				simulateText(simText, detectSimulationEnd);
 			}else{
-				simulateSVG(uploadedSVG);
+				simulateSVG(uploadedSVG, detectSimulationEnd);
 			}
 		}
 		
@@ -420,7 +421,7 @@ function clearSimulation(){
 }
 
 //Main Simulation Routine for text
-function simulateText(text){
+function simulateText(text, finializeFunc){
 	if(!state.newRNG){
 		animationBoxes();
 	}
@@ -464,16 +465,18 @@ function simulateText(text){
 	
 		}
 		crackPoint.bringToFront();
+
+		finializeFunc();
 	});
 }
 
 //main simulation routine for user-defined SVG
-function simulateSVG(svgstring){
+function simulateSVG(svgstring, finializeFunc){
 	mousepos = [100,100];
 	crackPoint = new Path.Circle([100,100],5);
 	crackPoint.fillColor = textColor;
 	
-	var svg = paper.project.importSVG(svgstring,{onLoad: handleSVG, onError: svgError, insert: true} );
+	var svg = paper.project.importSVG(svgstring,{onLoad: svg => {handleSVG(svg); finializeFunc();}, onError: svgError, insert: true} );
 	
 	crackPoint.bringToFront();
 }
@@ -520,6 +523,22 @@ function addToWorld(path){
 		physicObjectsAngles.push(body.angle);
 	}else{
 		path.remove();
+	}
+}
+
+function detectSimulationEnd() {
+	for (var o of physicObjects) {
+		Events.on(o, 'sleepStart sleepEnd', detectAllSleeping);
+	}
+}
+
+function detectAllSleeping() {
+	const amountOfSleepingObjects = physicObjects.filter(o => o.isSleeping).length;
+	const sleepingPercentage = amountOfSleepingObjects / physicObjects.length;
+	const allSleeping = physicObjects.every(o => o.isSleeping);
+	console.log('allSleeping?', allSleeping, (sleepingPercentage * 100).toFixed(0) + '%');
+	if (allSleeping) {
+		stopSimulation();
 	}
 }
 
