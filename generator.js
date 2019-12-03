@@ -390,6 +390,7 @@ function clearSeed(){
 	state = new StateSaver();
 	captionText = [];
 	endTime = 0;
+	hope = false;
 }
 
 //reset physic simulation
