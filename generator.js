@@ -1151,7 +1151,7 @@ function enableShare(){
 function downloadSVG(){
 	crackPoint.remove();
 	paper.view.update();
-    var svg = project.exportSVG({ asString: true });    
+    var svg = project.exportSVG({ asString: true, bounds: 'content' });    
     var svgBlob = new Blob([svg], {type:"image/svg+xml;charset=utf-8"});
     var svgUrl = URL.createObjectURL(svgBlob);
     var downloadLink = document.createElement("a");
