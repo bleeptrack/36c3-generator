@@ -472,7 +472,7 @@ function simulateText(text, finializeFunc){
 			if(i==0){
 				console.log(paper.view.bounds.x);
 				console.log(boundingbox.bottomLeft.x);
-				while(paper.view.bounds.x>boundingbox.bottomLeft.x){
+				while(paper.view.bounds.x+200>boundingbox.bottomLeft.x){
 					paper.view.zoom = paper.view.zoom-0.05;
 					console.log(paper.view.bounds.x);
 					console.log(boundingbox.bottomLeft.x);
@@ -563,7 +563,7 @@ function detectAllSleeping() {
 	const sleepingPercentage = amountOfSleepingObjects / physicObjects.length;
 	const allSleeping = physicObjects.every(o => o.isSleeping);
 	console.log('allSleeping?', allSleeping, (sleepingPercentage * 100).toFixed(0) + '%');
-	if (allSleeping) {
+	if (allSleeping && simulationRunning) {
 		stopSimulation();
 	}
 }
