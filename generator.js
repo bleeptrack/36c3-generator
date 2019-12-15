@@ -45,6 +45,7 @@ var uploadedSVG;
 var captionText = [];
 var simText = "36c3";
 var simSVG = "";
+var animation = false;
 
 //RNG
 var state = new StateSaver();
@@ -54,6 +55,7 @@ var seed = url.searchParams.get("seed");
 var eT = url.searchParams.get("time");
 var cT = url.searchParams.get("caption");
 var txt = url.searchParams.get("text");
+var anim = url.searchParams.get("animation");
 
 if(seed){
 	state = new StateSaver(seed);
@@ -67,6 +69,9 @@ if(cT){
 if(txt){
 	simText = txt;
 }
+if(anim){
+	animation = true;
+}
 
 
 
@@ -76,6 +81,15 @@ var span;
 
 window.onload = function() {
 	paper.setup('paperCanvas');
+	
+	if(animation){
+		var menue = document.getElementsByClassName("menue")[0];
+		menue.style.display = "none";
+		var zoom = document.getElementsByClassName("zoom")[0];
+		zoom.style.display = "none";
+		var infobox = document.getElementById("infobox");
+		infobox.style.display = "none";
+	}
 	
 	
 	//modal stuff
@@ -455,12 +469,24 @@ function simulateText(text, finializeFunc){
 			var paperpath = paper.project.importSVG(fontpaths[i].toSVG());
 			paperpath.fillColor = '#DCDCDC';
 			
+			if(i==0){
+				console.log(paper.view.bounds.x);
+				console.log(boundingbox.bottomLeft.x);
+				while(paper.view.bounds.x>boundingbox.bottomLeft.x){
+					paper.view.zoom = paper.view.zoom-0.05;
+					console.log(paper.view.bounds.x);
+					console.log(boundingbox.bottomLeft.x);
+				}
+			}
 			//paperpath = prepareLetter(paperpath, leanside);
 			
 			var rrad = (state.getNextInt(0,60)-30)/100;
 			paperpath.rotate(rrad * (180/Math.PI));
 			
 			paperpath.bounds.bottomCenter = [boundingbox.center.x, groundheight-80];
+			if(animation){
+				paperpath.bounds.bottomCenter = [boundingbox.center.x, groundheight-380];
+			}
 			crackShapeObject(paperpath);
 	
 		}
