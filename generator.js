@@ -1139,6 +1139,7 @@ function animationBoxes(){
 	document.getElementById("three").classList.add("disabled");
 	document.getElementById("four").classList.add("disabled");
 	document.getElementById("five").classList.add("disabled");
+	document.getElementById("six").classList.add("disabled");
 }
 
 //enable second phase boxed
@@ -1146,7 +1147,7 @@ function enableBoxes(){
 	document.getElementById("three").classList.remove("disabled");
 	document.getElementById("four").classList.remove("disabled");
 	document.getElementById("five").classList.remove("disabled");
-	
+	document.getElementById("six").classList.remove("disabled");
 	document.getElementById("two").classList.add("disabled");
 	
 	document.getElementById("one").classList.remove("disabled");
@@ -1157,7 +1158,7 @@ function disableBoxes(){
 	document.getElementById("three").classList.add("disabled");
 	document.getElementById("four").classList.add("disabled");
 	document.getElementById("five").classList.add("disabled");
-	
+	document.getElementById("six").classList.add("disabled");
 	document.getElementById("two").classList.remove("disabled");
 	
 	document.getElementById("one").classList.remove("disabled");
