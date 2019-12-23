@@ -100,7 +100,7 @@ window.onload = function() {
 	// Get the <span> element that closes the modal
 	span = document.getElementsByClassName("close")[0];
 
-	moveCaptionButton = document.getElementById("moveCaption");
+	//moveCaptionButton = document.getElementById("moveCaption");
 
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
@@ -141,11 +141,19 @@ window.onload = function() {
 		if(simulationRunning){
 			return;
 		}
+		
+		captionObjects.forEach(function(capObj){
+			if(capObj.contains(mousepos)){
+				moveCaption = true;
+			}
+		});
 
 		if(crackPoint && !moveCaption){
-				handleCrack(true, mousepos);
-				return;
+			handleCrack(true, mousepos);
+			return;
 		}
+		
+		
 	}
 
 	//update red position dot when mouse is moved
@@ -163,13 +171,17 @@ window.onload = function() {
 			}
 		}
 	}
+	
+	view.onMouseUp = function(event){
+		moveCaption = false;
+	}
 
 
 
 	setAnimationFunction();
 }
 
-function toggleMoveCaption(){
+/*function toggleMoveCaption(){
 	moveCaption = !moveCaption;
 	if(moveCaption){
 		moveCaptionButton.className = 'moveEnabled';
@@ -180,7 +192,7 @@ function toggleMoveCaption(){
 		document.getElementById("four").classList.remove("disabled");
 		document.getElementById("five").classList.remove("disabled");
 	}
-}
+}*/
 
 //apply physics engine simulation to paper.js animation
 function setAnimationFunction(view){
