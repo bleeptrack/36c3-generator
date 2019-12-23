@@ -10,7 +10,7 @@
     <script src="matter.js"></script>
     <script src="paper-full.js"></script>
     <script src="generator.js"></script>
-    
+
   </head>
   <body>
 	<div id="myModal" class="modal">
@@ -56,6 +56,8 @@
 			<div class="stagecontent">
 				<textarea name="" id="caption" cols="20" rows="3" autocomplete="off" placeholder="add your caption&#10;linebreaks allowed :)"></textarea></br>
 				<button onclick="setCaption(true)">insert</button>
+				<p>Enable Move <br>to drag the caption<br> to the desired position</p>
+				<button id="moveCaption" onclick="toggleMoveCaption()">Move</button>
 			</div>
 		</div>
 		<div class="stage orange disabled" id="four">
