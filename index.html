@@ -36,7 +36,7 @@
 			<div class="number">1</div>
 			<h2 class="orange" >Add Text or upload SVG</h2>
 			<div class="stagecontent">
-				<span style="margin: 0 auto;"><input type="text" id="simulationtext" placeholder="your word" autocomplete="off" maxlength="14"></input><button onclick="updateText()">&gt;</button></span>
+				<span style="margin: 0 auto;"><input type="text" id="simulationtext" placeholder="your word" autocomplete="off" maxlength="14" onkeypress="onEnter(event)"></input><button onclick="updateText()">&gt;</button></span>
 				<p>- or -</p>
 				<span style="margin: 0 auto;"><input type="file" id="svgupload" name="svgupload" accept="image/svg+xml" onchange="handleFiles(this.files)"><label for="svgupload" />choose a svg file</label><button onclick="handleFiles()">&gt;</button></span>
 			</div>
