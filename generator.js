@@ -418,6 +418,13 @@ function updateText(){
 	}
 }
 
+//checks if the user pressed enter
+function onEnter(event) {
+	if (event.key === "Enter") {
+		updateText();
+	}
+}
+
 //user uploads a ons svg
 function handleFiles(files){
 	clearSeed();
